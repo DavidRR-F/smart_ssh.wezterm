@@ -33,7 +33,7 @@ local function get_ssh_domains()
   local domains = wezterm.mux.all_domains()
   local ssh_domains = {}
   for _, domain in ipairs(domains) do
-    if string.find(string.lower(domain:label()), "ssh") ~= nil then
+    if domain:name():lower():find("^ssh") then
       table.insert(ssh_domains, domain)
     end
   end
