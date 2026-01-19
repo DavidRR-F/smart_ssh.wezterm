@@ -9,7 +9,7 @@ local function deep_setmetatable(user, default)
   user = user or {}
   for k, v in pairs(default) do
     if type(v) == "table" then
-      user[k] = M.deep_setmetatable(user[k], v)
+      user[k] = deep_setmetatable(user[k], v)
     else
       if user[k] == nil then
         user[k] = v
@@ -77,9 +77,9 @@ function M.tab()
             wezterm.emit('smart_ssh.fuzzy_selector.canceled', window, pane)
           end
         end),
-        title = "Choose Domain",
+        title = "Choose Host",
         description = "Select a host and press Enter = accept, Esc = cancel, / = filter",
-        fuzzy_description = "Domains: ",
+        fuzzy_description = "Host: ",
         choices = choices,
         fuzzy = true,
       }),
@@ -106,9 +106,9 @@ function M.vsplit()
             wezterm.emit('smart_ssh.fuzzy_selector.canceled', window, pane)
           end
         end),
-        title = "Choose Domain",
+        title = "Choose Host",
         description = "Select a host and press Enter = accept, Esc = cancel, / = filter",
-        fuzzy_description = "Domains: ",
+        fuzzy_description = "Host: ",
         choices = choices,
         fuzzy = true,
       }),
@@ -135,9 +135,9 @@ function M.hsplit()
             wezterm.emit('smart_ssh.fuzzy_selector.canceled', window, pane)
           end
         end),
-        title = "Choose Domain",
+        title = "Choose Host",
         description = "Select a host and press Enter = accept, Esc = cancel, / = filter",
-        fuzzy_description = "Domains: ",
+        fuzzy_description = "Host: ",
         choices = choices,
         fuzzy = true,
       }),
@@ -153,6 +153,7 @@ function M.apply_to_config(config, user_settings)
     table.insert(ssh_domains, {
       name = host,
       remote_address = host,
+      label = "ssh " .. host,
       multiplexing = opts.multiplexing,
       assume_shell = opts.assume_shell,
     })
