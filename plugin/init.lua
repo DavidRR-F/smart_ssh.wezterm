@@ -153,12 +153,14 @@ function M.apply_to_config(config, user_settings)
   local opts = deep_setmetatable(user_settings or {}, default_settings)
   local ssh_domains = {}
   for host, _ in pairs(wezterm.enumerate_ssh_hosts()) do
-    table.insert(ssh_domains, {
-      name = "ssh:" .. host,
-      remote_address = host,
-      multiplexing = opts.multiplexing,
-      assume_shell = opts.assume_shell,
-    })
+    if not host:match("%.host") then
+      table.insert(ssh_domains, {
+        name = "ssh:" .. host,
+        remote_address = host,
+        multiplexing = opts.multiplexing,
+        assume_shell = opts.assume_shell,
+      })
+    end
   end
   config.ssh_domains = ssh_domains
 end
