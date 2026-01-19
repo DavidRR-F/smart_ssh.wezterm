@@ -2,8 +2,6 @@
 
 A faster way to search and attach to ssh sessions in wezterm. Inspired by [smart_workpace_switcher.wezterm](https://github.com/MLFlexer/smart_workspace_switcher.wezterm)
 
-## Quick Look
-
 #### Dependencies
 
 There are no package dependencies, but you need to configured your
