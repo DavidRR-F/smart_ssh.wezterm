@@ -24,7 +24,7 @@ local M = {}
 
 M.formatter = function(icon, name, _)
   return wezterm.format({
-    { Text = icon .. ' ' .. string.lower(name) }
+    { Text = icon .. ' ' .. string.lower((name:sub(5))) }
   })
 end
 
@@ -59,6 +59,7 @@ local function get_choices(mux_domains)
   return choices
 end
 
+---@return _.wezterm.action_callback
 function M.tab()
   return wezterm.action_callback(function(window, pane)
     local ssh_domains = get_ssh_domains()
@@ -88,6 +89,7 @@ function M.tab()
   end)
 end
 
+---@return _.wezterm.action_callback
 function M.vsplit()
   return wezterm.action_callback(function(window, pane)
     local ssh_domains = get_ssh_domains()
@@ -117,6 +119,7 @@ function M.vsplit()
   end)
 end
 
+---@return _.wezterm.action_callback
 function M.hsplit()
   return wezterm.action_callback(function(window, pane)
     local ssh_domains = get_ssh_domains()
@@ -151,9 +154,8 @@ function M.apply_to_config(config, user_settings)
   local ssh_domains = {}
   for host, _ in pairs(wezterm.enumerate_ssh_hosts()) do
     table.insert(ssh_domains, {
-      name = host,
+      name = "ssh:" .. host,
       remote_address = host,
-      label = "ssh " .. host,
       multiplexing = opts.multiplexing,
       assume_shell = opts.assume_shell,
     })
