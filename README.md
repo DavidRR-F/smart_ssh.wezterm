@@ -12,7 +12,7 @@ There are no package dependencies, but you need to configured your
 This is a wezterm plugin. It can be installed by importing the repo and calling the `apply_to_config` function. It is important that the `apply_to_config` function is called after keys and key_tables have been set.
 ```lua 
 local smart_ssh = wezterm.plugin.require("https://github.com/DavidRR-F/smart_ssh.wezterm")
-domains.apply_to_config(config)
+smart_ssh.apply_to_config(config)
 ```
 
 ### 🎨 Configuration
@@ -20,7 +20,7 @@ domains.apply_to_config(config)
 The `apply_to_config` function takes a second parameter opts. To override any options simply pass a table of the desired changes.
 
 ```lua
-domains.apply_to_config(
+smart_ssh.apply_to_config(
   config,
   {
     multiplexing = "None"
@@ -69,7 +69,7 @@ These are the current default setting the can be overridden on your `apply_to_co
 This is the current default formatter function that can be overridden 
 
 ```lua 
-domains.formatter = function(icon, name, _)
+smart_ssh.formatter = function(icon, name, _)
     return wezterm.format({ 
         { Text = icon .. ' ' .. string.lower(name) } 
     })
